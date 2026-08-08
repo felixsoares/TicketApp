@@ -1,30 +1,29 @@
-package com.mobile.felix.ticketapp.feature.ticket.presentation
+package com.mobile.felix.ticketapp.feature.eventDetail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mobile.felix.ticketapp.feature.home.presentation.action.HomeAction
-import com.mobile.felix.ticketapp.feature.ticket.data.usecase.GetEventByIdUseCase
-import com.mobile.felix.ticketapp.feature.ticket.presentation.action.TicketAction
-import com.mobile.felix.ticketapp.feature.ticket.presentation.state.TicketUiState
+import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.GetEventByIdUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.presentation.action.EventDetailAction
+import com.mobile.felix.ticketapp.feature.eventDetail.presentation.state.EventDetailUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class TicketViewModel(
+class EventDetailViewModel(
     private val getEventByIdUseCase: GetEventByIdUseCase
 ) : ViewModel() {
 
-    private val pendingActions = MutableSharedFlow<TicketAction>()
+    private val pendingActions = MutableSharedFlow<EventDetailAction>()
 
-    var uiState = MutableStateFlow(TicketUiState())
+    var uiState = MutableStateFlow(EventDetailUiState())
         private set
 
     init {
         viewModelScope.launch {
             pendingActions.collect { action ->
                 when (action) {
-                    is TicketAction.Idle -> {}
-                    is TicketAction.GetEventById -> getEvent(action.eventId)
+                    is EventDetailAction.Idle -> {}
+                    is EventDetailAction.GetEventById -> getEvent(action.eventId)
                 }
             }
         }
@@ -39,7 +38,7 @@ class TicketViewModel(
         )
     }
 
-    fun onAction(action: TicketAction) = viewModelScope.launch {
+    fun onAction(action: EventDetailAction) = viewModelScope.launch {
         pendingActions.emit(action)
     }
 }

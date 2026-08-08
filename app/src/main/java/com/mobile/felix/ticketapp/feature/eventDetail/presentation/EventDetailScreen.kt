@@ -1,4 +1,4 @@
-package com.mobile.felix.ticketapp.feature.ticket.presentation
+package com.mobile.felix.ticketapp.feature.eventDetail.presentation
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -49,17 +49,17 @@ import com.mobile.felix.ticketapp.core.presentation.ErrorView
 import com.mobile.felix.ticketapp.core.presentation.LoadingView
 import com.mobile.felix.ticketapp.core.util.getBase64
 import com.mobile.felix.ticketapp.core.util.startForegroundServiceAndLaunchDeepLink
-import com.mobile.felix.ticketapp.feature.ticket.presentation.action.TicketAction
+import com.mobile.felix.ticketapp.feature.eventDetail.presentation.action.EventDetailAction
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TicketScreen(modifier: Modifier = Modifier, eventId: Long) {
 
-    val viewModel: TicketViewModel = koinViewModel()
+    val viewModel: EventDetailViewModel = koinViewModel()
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Lifecycle.Event.ON_CREATE) {
-        viewModel.onAction(TicketAction.GetEventById(eventId))
+        viewModel.onAction(EventDetailAction.GetEventById(eventId))
     }
 
     if (state.value.isLoading) {

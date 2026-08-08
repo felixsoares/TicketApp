@@ -5,7 +5,7 @@ import com.mobile.felix.ticketapp.core.di.localModule
 import com.mobile.felix.ticketapp.feature.cart.di.cartModule
 import com.mobile.felix.ticketapp.feature.home.di.homeModule
 import com.mobile.felix.ticketapp.feature.receipt.di.receiptModule
-import com.mobile.felix.ticketapp.feature.ticket.di.ticketModule
+import com.mobile.felix.ticketapp.feature.eventDetail.di.eventDetailModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +17,7 @@ class MainApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
-            modules(localModule, homeModule, ticketModule, cartModule, receiptModule)
+            modules(localModule, homeModule, eventDetailModule, cartModule, receiptModule)
         }
     }
 }

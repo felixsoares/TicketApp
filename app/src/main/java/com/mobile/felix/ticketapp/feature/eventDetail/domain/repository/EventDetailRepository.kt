@@ -1,7 +1,7 @@
-package com.mobile.felix.ticketapp.feature.ticket.domain.repository
+package com.mobile.felix.ticketapp.feature.eventDetail.domain.repository
 
 import com.mobile.felix.ticketapp.core.domain.model.Event
 
-interface TicketRepository {
+interface EventDetailRepository {
     suspend fun getEventById(eventId: Long): Event
 }

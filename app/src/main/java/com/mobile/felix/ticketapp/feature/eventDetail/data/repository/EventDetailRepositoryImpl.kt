@@ -1,16 +1,16 @@
-package com.mobile.felix.ticketapp.feature.ticket.data.repository
+package com.mobile.felix.ticketapp.feature.eventDetail.data.repository
 
 import com.mobile.felix.ticketapp.core.domain.model.Event
-import com.mobile.felix.ticketapp.feature.ticket.domain.repository.TicketRepository
-import com.mobile.felix.ticketapp.feature.ticket.domain.source.TicketLocalDataSource
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.repository.EventDetailRepository
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.source.EventDetailLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class TicketRepositoryImpl(
-    private val localDataSource: TicketLocalDataSource,
+class EventDetailRepositoryImpl(
+    private val localDataSource: EventDetailLocalDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : TicketRepository {
+) : EventDetailRepository {
 
     override suspend fun getEventById(eventId: Long): Event = withContext(dispatcher) {
         return@withContext localDataSource.getEventById(eventId)

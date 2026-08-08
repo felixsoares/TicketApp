@@ -1,11 +1,9 @@
 package com.mobile.felix.ticketapp
 
-import android.app.ComponentCaller
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -35,7 +33,7 @@ import com.mobile.felix.ticketapp.core.presentation.Navigation
 import com.mobile.felix.ticketapp.core.presentation.Route
 import com.mobile.felix.ticketapp.core.util.callToStopService
 import com.mobile.felix.ticketapp.core.util.deserializeQueryParameter
-import com.mobile.felix.ticketapp.feature.ticket.presentation.TicketScreen
+import com.mobile.felix.ticketapp.feature.eventDetail.presentation.TicketScreen
 import com.mobile.felix.ticketapp.ui.theme.TicketAppTheme
 
 class MainActivity : ComponentActivity() {
