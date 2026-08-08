@@ -1,7 +1,7 @@
 package com.mobile.felix.ticketapp.feature.ticket.data.source
 
 import com.mobile.felix.ticketapp.core.data.local.dao.EventDao
-import com.mobile.felix.ticketapp.core.domain.Event
+import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.core.mapper.toDomain
 import com.mobile.felix.ticketapp.feature.ticket.domain.source.TicketLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher
