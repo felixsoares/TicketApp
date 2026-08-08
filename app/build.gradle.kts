@@ -51,6 +51,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    // Imports for Cielo Integration
+    implementation(files("libs/order-manager-2.7.2.aar"))
+    implementation(files("libs/event-tracker-1.0.1.aar"))
+
+    // Gson
+    implementation(libs.google.gson)
+
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network)

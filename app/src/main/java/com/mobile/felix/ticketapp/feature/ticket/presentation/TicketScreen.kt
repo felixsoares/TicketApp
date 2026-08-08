@@ -1,5 +1,6 @@
 package com.mobile.felix.ticketapp.feature.ticket.presentation
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,9 +40,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.google.gson.Gson
+import com.mobile.felix.ticketapp.R
 import com.mobile.felix.ticketapp.core.domain.model.Event
+import com.mobile.felix.ticketapp.core.domain.model.payment.Item
+import com.mobile.felix.ticketapp.core.domain.model.payment.OrderRequest
 import com.mobile.felix.ticketapp.core.presentation.ErrorView
 import com.mobile.felix.ticketapp.core.presentation.LoadingView
+import com.mobile.felix.ticketapp.core.util.getBase64
+import com.mobile.felix.ticketapp.core.util.startForegroundServiceAndLaunchDeepLink
 import com.mobile.felix.ticketapp.feature.ticket.presentation.action.TicketAction
 import org.koin.androidx.compose.koinViewModel
 
@@ -58,14 +65,16 @@ fun TicketScreen(modifier: Modifier = Modifier, eventId: Long) {
     if (state.value.isLoading) {
         LoadingView(modifier = modifier)
     } else if (state.value.event != null) {
+        val event = state.value.event!!
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            EventContent(event = state.value.event!!)
+            EventContent(event = event)
             TicketContent(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
+                    .align(Alignment.BottomCenter),
+                event = event,
             )
         }
     } else {
@@ -85,8 +94,10 @@ fun EventContent(event: Event) {
 
 @Composable
 fun TicketContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    event: Event
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -94,7 +105,7 @@ fun TicketContent(
     ) {
         TicketAmount()
         Button(
-            onClick = { },
+            onClick = { makePayment(context = context, event = event, ticketCount = 1) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp)
@@ -215,6 +226,45 @@ fun EventHeader(posterUrl: String) {
             contentScale = ContentScale.Crop
         )
     }
+}
+
+private fun makePayment(context: Context, event: Event, ticketCount: Int) {
+    val reference = "uriapp #" + (System.currentTimeMillis() / 1000)
+    val callbackUrlSameActivity by lazy {
+        "${context.getString(R.string.intent_scheme)}://${
+            context.getString(
+                R.string.intent_host
+            )
+        }"
+    }
+
+    val price = (500L..1000L).random()
+    val randomSku: Int = (1000..100000).random()
+    val item = Item(
+        sku = randomSku.toString(),
+        name = event.name,
+        unitPrice = price,
+        quantity = ticketCount,
+        unitOfMeasure = "unidade"
+    )
+    val items = mutableListOf(item)
+
+    val request = OrderRequest(
+        "xxxxxxxxxxxxxxxxx",
+        "xxxxxxxxxxxxxxxxxxxxxx",
+        price * ticketCount,
+        null,
+        1,
+        "felix@email.br",
+        null,
+        reference,
+        items,
+    )
+
+    val json = Gson().toJson(request).toString()
+    val base64 = getBase64(json)
+    val checkoutUri = "lio://payment?request=$base64&urlCallback=$callbackUrlSameActivity"
+    startForegroundServiceAndLaunchDeepLink(context, checkoutUri)
 }
 
 @Preview
