@@ -1,7 +1,8 @@
 package com.mobile.felix.ticketapp.core.data.database
 
 import com.mobile.felix.ticketapp.core.data.local.entity.EventEntity
-import com.mobile.felix.ticketapp.core.domain.Event
+import com.mobile.felix.ticketapp.core.data.local.entity.OrderEntity
+import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 
 object MockDataBase {
     val events = listOf(
@@ -39,6 +40,39 @@ object MockDataBase {
             location = "Teatro Bradesco",
             poster = "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=500",
             description = "Apresentação única dos melhores comediantes da cena nacional."
+        )
+    )
+
+    val orders = listOf(
+        OrderEntity(
+            id = 1L,
+            eventId = 2L,
+            eventName = "Festival de Verão 2026",
+            eventDate = "15/02/2026",
+            amount = 240.0,
+            purchaseDate = "10/01/2026",
+            ticketQuantity = 2,
+            status = OrderStatus.APPROVED.name
+        ),
+        OrderEntity(
+            id = 2L,
+            eventId = 3L,
+            eventName = "Rock Night In Concert",
+            eventDate = "20/03/2026",
+            amount = 180.0,
+            purchaseDate = "15/02/2026",
+            ticketQuantity = 1,
+            status = OrderStatus.DENIED.name
+        ),
+        OrderEntity(
+            id = 3L,
+            eventId = 5L,
+            eventName = "Noite do Humour - Stand-up Comedy",
+            eventDate = "05/06/2026",
+            amount = 150.0,
+            purchaseDate = "01/03/2026",
+            ticketQuantity = 3,
+            status = OrderStatus.CANCELLED.name
         )
     )
 }

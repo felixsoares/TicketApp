@@ -5,7 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.mobile.felix.ticketapp.feature.cart.presentation.CartScreen
 import com.mobile.felix.ticketapp.feature.home.presentation.HomeScreen
+import com.mobile.felix.ticketapp.feature.receipt.presentation.ReceiptScreen
 import com.mobile.felix.ticketapp.feature.ticket.presentation.TicketScreen
 import kotlinx.serialization.Serializable
 
@@ -31,6 +33,15 @@ fun Navigation(modifier: Modifier = Modifier, navController: NavHostController, 
 
         composable<Route.Cart> {
             hideShowBottomBar(true)
+            CartScreen(onClickItem = { orderId ->
+                navController.navigate(Route.Receipt(orderId))
+            })
+        }
+
+        composable<Route.Receipt> { backStackEntry ->
+            hideShowBottomBar(false)
+            val orderId: Long = backStackEntry.arguments?.getLong("orderId") ?: 0L
+            ReceiptScreen(orderId = orderId)
         }
     }
 }
@@ -44,4 +55,7 @@ sealed class Route {
 
     @Serializable
     data object Cart : Route()
+
+    @Serializable
+    data class Receipt(val orderId: Long) : Route()
 }

@@ -1,6 +1,6 @@
 package com.mobile.felix.ticketapp.feature.home.data.repository
 
-import com.mobile.felix.ticketapp.core.domain.Event
+import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.feature.home.domain.repository.HomeRepository
 import com.mobile.felix.ticketapp.feature.home.domain.source.HomeLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher

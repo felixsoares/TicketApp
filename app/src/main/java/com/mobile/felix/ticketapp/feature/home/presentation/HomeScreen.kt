@@ -27,7 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.mobile.felix.ticketapp.core.domain.Event
+import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.core.presentation.ErrorView
 import com.mobile.felix.ticketapp.core.presentation.LoadingView
 import com.mobile.felix.ticketapp.feature.home.presentation.action.HomeAction
