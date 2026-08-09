@@ -5,12 +5,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "order_table")
 data class OrderEntity(
-    @PrimaryKey(autoGenerate = false)
-    val id: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
     val eventId: Long,
     val eventName: String,
     val eventDate: String,
-    val amount: Double,
+    val eventPrice: Double,
     val purchaseDate: String,
     val ticketQuantity: Int,
     val status: String

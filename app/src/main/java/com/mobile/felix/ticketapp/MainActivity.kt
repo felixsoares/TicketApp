@@ -1,9 +1,6 @@
 package com.mobile.felix.ticketapp
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -31,9 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.mobile.felix.ticketapp.core.presentation.Navigation
 import com.mobile.felix.ticketapp.core.presentation.Route
-import com.mobile.felix.ticketapp.core.util.callToStopService
-import com.mobile.felix.ticketapp.core.util.deserializeQueryParameter
-import com.mobile.felix.ticketapp.feature.eventDetail.presentation.TicketScreen
+import com.mobile.felix.ticketapp.feature.home.presentation.HomeScreen
 import com.mobile.felix.ticketapp.ui.theme.TicketAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +36,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        handleDeepLink(this, intent)
         setContent {
             TicketAppTheme {
                 val isVisibleBottomBar = remember { mutableStateOf(true) }
@@ -67,10 +61,10 @@ class MainActivity : ComponentActivity() {
                             )
 
                             NavigationBarItem(
-                                selected = selectedDestination == Route.Cart.hashCode(),
+                                selected = selectedDestination == Route.Tickets.hashCode(),
                                 onClick = {
-                                    selectedDestination = Route.Cart.hashCode()
-                                    navController.navigate(Route.Cart)
+                                    selectedDestination = Route.Tickets.hashCode()
+                                    navController.navigate(Route.Tickets)
                                 },
                                 icon = {
                                     Icon(
@@ -87,24 +81,12 @@ class MainActivity : ComponentActivity() {
                     Navigation(
                         modifier = Modifier.padding(innerPadding),
                         navController = navController,
-                        hideShowBottomBar = { isVisible ->
+                        isBottomBarVisible = { isVisible ->
                             isVisibleBottomBar.value = isVisible
                         }
                     )
                 }
             }
-        }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleDeepLink(this, intent)
-    }
-
-    private fun handleDeepLink(context: Context, intent: Intent) {
-        callToStopService(context)
-        intent.deserializeQueryParameter("response") { json ->
-            Log.i("MainActivity", "onNewIntent: $json")
         }
     }
 }
@@ -113,6 +95,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     TicketAppTheme {
-        TicketScreen(eventId = 2L)
+        HomeScreen() { }
     }
 }

@@ -1,11 +1,11 @@
-package com.mobile.felix.ticketapp.core.domain.model.payment
+package com.mobile.felix.ticketapp.core.data.payment.request
 
 import cielo.orders.domain.SubAcquirer
 
 data class OrderRequest(
     val clientID: String,
     val accessToken: String,
-    val value: Long,
+    val value: Double,
     val paymentCode: String?,
     val installments: Int,
     val email: String,

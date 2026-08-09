@@ -5,7 +5,7 @@ data class Order(
     val eventId: Long,
     val eventName: String,
     val eventDate: String,
-    val amount: Double,
+    val price: Double,
     val purchaseDate: String,
     val ticketQuantity: Int,
     val status: OrderStatus

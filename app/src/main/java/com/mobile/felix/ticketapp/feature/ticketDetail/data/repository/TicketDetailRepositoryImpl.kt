@@ -1,6 +1,7 @@
 package com.mobile.felix.ticketapp.feature.ticketDetail.data.repository
 
 import com.mobile.felix.ticketapp.core.domain.model.Order
+import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 import com.mobile.felix.ticketapp.feature.ticketDetail.domain.repository.TicketDetailRepository
 import com.mobile.felix.ticketapp.feature.ticketDetail.domain.source.TicketDetailLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,8 +13,12 @@ class TicketDetailRepositoryImpl(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TicketDetailRepository {
 
-    override suspend fun getOrderById(orderId: Long): Order = withContext(dispatcher) {
+    override suspend fun getOrderById(orderId: Long): Order? = withContext(dispatcher) {
         localDataSource.getOrderById(orderId)
+    }
+
+    override suspend fun updateOrderStatus(orderId: Long, status: OrderStatus) {
+        localDataSource.updateOrderStatus(orderId, status)
     }
 }
 

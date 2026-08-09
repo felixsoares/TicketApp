@@ -6,5 +6,6 @@ data class Event(
     val date: String,
     val location: String,
     val poster: String,
+    val price: Double,
     val description: String,
 )

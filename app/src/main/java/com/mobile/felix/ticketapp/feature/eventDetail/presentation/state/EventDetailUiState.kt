@@ -4,5 +4,7 @@ import com.mobile.felix.ticketapp.core.domain.model.Event
 
 data class EventDetailUiState(
     val isLoading: Boolean = false,
-    val event: Event? = null
+    val event: Event? = null,
+    val message: String = "",
+    val orderId: Long? = null
 )

@@ -1,7 +1,6 @@
 package com.mobile.felix.ticketapp.feature.eventDetail.presentation
 
-import android.content.Context
-import androidx.compose.foundation.background
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +14,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Button
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -26,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -40,20 +40,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.google.gson.Gson
-import com.mobile.felix.ticketapp.R
 import com.mobile.felix.ticketapp.core.domain.model.Event
-import com.mobile.felix.ticketapp.core.domain.model.payment.Item
-import com.mobile.felix.ticketapp.core.domain.model.payment.OrderRequest
 import com.mobile.felix.ticketapp.core.presentation.ErrorView
 import com.mobile.felix.ticketapp.core.presentation.LoadingView
-import com.mobile.felix.ticketapp.core.util.getBase64
-import com.mobile.felix.ticketapp.core.util.startForegroundServiceAndLaunchDeepLink
 import com.mobile.felix.ticketapp.feature.eventDetail.presentation.action.EventDetailAction
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TicketScreen(modifier: Modifier = Modifier, eventId: Long) {
+fun EventDetailScreen(
+    modifier: Modifier = Modifier,
+    eventId: Long,
+    onNavigateToTicketDetail: (Long) -> Unit
+) {
 
     val viewModel: EventDetailViewModel = koinViewModel()
     val state = viewModel.uiState.collectAsStateWithLifecycle()
@@ -62,28 +60,52 @@ fun TicketScreen(modifier: Modifier = Modifier, eventId: Long) {
         viewModel.onAction(EventDetailAction.GetEventById(eventId))
     }
 
-    if (state.value.isLoading) {
-        LoadingView(modifier = modifier)
-    } else if (state.value.event != null) {
-        val event = state.value.event!!
-        Box(
-            modifier = modifier.fillMaxSize()
-        ) {
-            EventContent(event = event)
-            TicketContent(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
-                event = event,
-            )
-        }
-    } else {
-        ErrorView(modifier = modifier)
+    val onBuyAction: (Event, Int) -> Unit = { event, quantity ->
+        viewModel.onAction(EventDetailAction.BuyTicket(event, quantity))
+    }
+
+    when {
+        state.value.orderId != null -> onNavigateToTicketDetail(state.value.orderId!!)
+        state.value.isLoading -> LoadingView(modifier = modifier)
+        state.value.event != null -> EventDetailContent(
+            state.value.event!!,
+            state.value.message,
+            modifier,
+            onBuyAction
+        )
+
+        else -> ErrorView(modifier = modifier)
     }
 }
 
 @Composable
-fun EventContent(event: Event) {
+private fun EventDetailContent(
+    event: Event,
+    message: String,
+    modifier: Modifier,
+    onBuyAction: (event: Event, quantity: Int) -> Unit
+) {
+    Box(
+        modifier = modifier.fillMaxSize()
+    ) {
+        EventDetail(event = event)
+        TicketContent(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
+            event = event,
+            onBuyAction = onBuyAction
+        )
+
+        if (message.isNotBlank()) {
+            val context = LocalContext.current
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+@Composable
+fun EventDetail(event: Event) {
     Column(
         modifier = Modifier
     ) {
@@ -95,17 +117,28 @@ fun EventContent(event: Event) {
 @Composable
 fun TicketContent(
     modifier: Modifier = Modifier,
-    event: Event
+    event: Event,
+    onBuyAction: (event: Event, quantity: Int) -> Unit
 ) {
-    val context = LocalContext.current
+    var ticketCount by remember { mutableIntStateOf(1) }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        TicketAmount()
+        TicketAmount(
+            ticketCount,
+            onIncrement = { ticketCount++ },
+            onDecrement = { if (ticketCount > 1) ticketCount-- })
+
+        TicketTotal(
+            quantity = ticketCount,
+            price = event.price
+        )
+
         Button(
-            onClick = { makePayment(context = context, event = event, ticketCount = 1) },
+            onClick = { onBuyAction(event, ticketCount) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp)
@@ -118,57 +151,87 @@ fun TicketContent(
 }
 
 @Composable
-private fun TicketAmount() {
-    var ticketCount by remember { mutableIntStateOf(1) }
-
-    Column(
+private fun TicketAmount(ticketCount: Int, onDecrement: () -> Unit, onIncrement: () -> Unit) {
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
         modifier = Modifier
-            .background(
-                color = Color(0xFFF2F0EF),
-                shape = RoundedCornerShape(16.dp)
-            )
+            .fillMaxWidth()
     ) {
-        Text(
-            text = "Quantidade de ingressos",
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
         ) {
-            IconButton(
-                onClick = { if (ticketCount >= 1) ticketCount-- },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Remove,
-                    contentDescription = null,
-                )
-            }
-
             Text(
-                text = "$ticketCount",
+                text = "Quantidade de ingressos",
                 fontSize = 20.sp,
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
             )
 
-            IconButton(
-                onClick = { ticketCount++ },
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null,
+                IconButton(
+                    onClick = { onDecrement() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Remove,
+                        contentDescription = null,
+                    )
+                }
+
+                Text(
+                    text = "$ticketCount",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
+
+                IconButton(
+                    onClick = { onIncrement() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = null,
+                    )
+                }
             }
+        }
+    }
+}
+
+@Composable
+private fun TicketTotal(quantity: Int, price: Double) {
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
+        modifier = Modifier
+            .padding(top = 16.dp)
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Total R$ ${"%.2f".format(price * quantity)}",
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
         }
     }
 }
@@ -201,6 +264,10 @@ fun EventDescription(event: Event) {
         )
 
         Text(
+            text = "Valor do ingresso R$ ${"%.2f".format(event.price)}"
+        )
+
+        Text(
             text = event.description,
         )
     }
@@ -228,56 +295,21 @@ fun EventHeader(posterUrl: String) {
     }
 }
 
-private fun makePayment(context: Context, event: Event, ticketCount: Int) {
-    val reference = "uriapp #" + (System.currentTimeMillis() / 1000)
-    val callbackUrlSameActivity by lazy {
-        "${context.getString(R.string.intent_scheme)}://${
-            context.getString(
-                R.string.intent_host
-            )
-        }"
-    }
-
-    val price = (500L..1000L).random()
-    val randomSku: Int = (1000..100000).random()
-    val item = Item(
-        sku = randomSku.toString(),
-        name = event.name,
-        unitPrice = price,
-        quantity = ticketCount,
-        unitOfMeasure = "unidade"
-    )
-    val items = mutableListOf(item)
-
-    val request = OrderRequest(
-        "xxxxxxxxxxxxxxxxx",
-        "xxxxxxxxxxxxxxxxxxxxxx",
-        price * ticketCount,
-        null,
-        1,
-        "felix@email.br",
-        null,
-        reference,
-        items,
-    )
-
-    val json = Gson().toJson(request).toString()
-    val base64 = getBase64(json)
-    val checkoutUri = "lio://payment?request=$base64&urlCallback=$callbackUrlSameActivity"
-    startForegroundServiceAndLaunchDeepLink(context, checkoutUri)
-}
-
 @Preview
 @Composable
 fun Preview() {
-    EventContent(
+    EventDetailContent(
         event = Event(
             id = 1,
             name = "Show do Rock",
             location = "São Paulo, SP",
             date = "2024-06-15",
             description = "Um show incrível de rock com bandas renomadas.",
-            poster = "https://example.com/poster.jpg"
-        )
+            poster = "https://example.com/poster.jpg",
+            price = 10.0
+        ),
+        message = "teste",
+        modifier = Modifier,
+        onBuyAction = { event, quantity -> }
     )
 }

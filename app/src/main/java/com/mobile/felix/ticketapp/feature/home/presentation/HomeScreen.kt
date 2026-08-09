@@ -34,7 +34,7 @@ import com.mobile.felix.ticketapp.feature.home.presentation.action.HomeAction
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, onClickItem: (Long) -> Unit) {
+fun HomeScreen(modifier: Modifier = Modifier, onNavigateToDetail: (Long) -> Unit) {
 
     val viewModel: HomeViewModel = koinViewModel()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
@@ -46,7 +46,7 @@ fun HomeScreen(modifier: Modifier = Modifier, onClickItem: (Long) -> Unit) {
     if (uiState.value.isLoading) {
         LoadingView(modifier)
     } else if (uiState.value.events != null) {
-        EventList(modifier, events = uiState.value.events!!, onClickItem)
+        EventList(modifier, events = uiState.value.events!!, onNavigateToDetail)
     } else {
         ErrorView(modifier)
     }
@@ -132,6 +132,7 @@ fun Preview() {
                 id = 2L,
                 name = "Festival de Verão 2026",
                 date = "15/02/2026",
+                price = 250.00,
                 location = "Arena Anhembi - São Paulo, SP",
                 poster = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500",
                 description = "Grande festival com mais de 10 atrações nacionais e internacionais no palco principal."
@@ -141,6 +142,7 @@ fun Preview() {
                 id = 4L,
                 name = "Conferência Internacional de Tecnologia, Inovação e Inteligência Artificial 2026",
                 date = "10/05/2026",
+                price = 250.00,
                 location = "Centro de Convenções Pro Magno - São Paulo, SP",
                 poster = "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=500",
                 description = "Evento focado nas novas tendências do mercado de desenvolvimento, arquitetura de software, computação em nuvem e novos modelos de IA."

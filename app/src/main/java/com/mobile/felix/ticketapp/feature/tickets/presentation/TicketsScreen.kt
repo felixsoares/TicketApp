@@ -106,7 +106,7 @@ fun OrderCard(order: Order, onClick: () -> Unit = {}) {
                     color = MaterialTheme.colorScheme.outline
                 )
                 Text(
-                    text = "R$ ${"%.2f".format(order.amount)}",
+                    text = "R$ ${"%.2f".format(order.price)}",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -121,6 +121,7 @@ fun OrderStatusChip(status: OrderStatus) {
         OrderStatus.APPROVED -> Triple("Aprovada", Color(0xFF2E7D32), Color.White)
         OrderStatus.DENIED -> Triple("Negada", Color(0xFFC62828), Color.White)
         OrderStatus.CANCELLED -> Triple("Cancelada", Color(0xFF616161), Color.White)
+        OrderStatus.WAITING_PAYMENT -> Triple("Pagamento Pendente", Color(0xFFF9A825), Color.White)
     }
 
     SuggestionChip(
@@ -148,7 +149,7 @@ fun CartScreenPreview() {
                 eventId = 2L,
                 eventName = "Festival de Verão 2026",
                 eventDate = "15/02/2026",
-                amount = 240.0,
+                price = 240.0,
                 purchaseDate = "10/01/2026",
                 ticketQuantity = 2,
                 status = OrderStatus.APPROVED
@@ -158,7 +159,7 @@ fun CartScreenPreview() {
                 eventId = 3L,
                 eventName = "Rock Night In Concert",
                 eventDate = "20/03/2026",
-                amount = 180.0,
+                price = 180.0,
                 purchaseDate = "15/02/2026",
                 ticketQuantity = 1,
                 status = OrderStatus.DENIED
@@ -168,11 +169,21 @@ fun CartScreenPreview() {
                 eventId = 5L,
                 eventName = "Noite do Humour - Stand-up Comedy",
                 eventDate = "05/06/2026",
-                amount = 150.0,
+                price = 150.0,
                 purchaseDate = "01/03/2026",
                 ticketQuantity = 3,
                 status = OrderStatus.CANCELLED
-            )
+            ),
+            Order(
+                id = 2L,
+                eventId = 3L,
+                eventName = "Rock Night In Concert",
+                eventDate = "20/03/2026",
+                price = 180.0,
+                purchaseDate = "15/02/2026",
+                ticketQuantity = 1,
+                status = OrderStatus.WAITING_PAYMENT
+            ),
         )
     )
 }

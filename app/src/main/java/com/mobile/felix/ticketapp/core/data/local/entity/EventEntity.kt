@@ -11,6 +11,7 @@ data class EventEntity(
     val id: Long,
     val name: String,
     val date: String,
+    val price: Double,
     val location: String,
     val poster: String,
     val description: String,

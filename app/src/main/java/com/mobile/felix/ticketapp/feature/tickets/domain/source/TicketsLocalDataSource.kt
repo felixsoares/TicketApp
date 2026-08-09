@@ -4,6 +4,5 @@ import com.mobile.felix.ticketapp.core.domain.model.Order
 
 interface TicketsLocalDataSource {
     suspend fun getOrders(): List<Order>
-    suspend fun initOrders()
 }
 
