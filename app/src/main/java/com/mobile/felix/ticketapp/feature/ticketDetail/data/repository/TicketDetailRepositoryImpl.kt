@@ -1,16 +1,16 @@
-package com.mobile.felix.ticketapp.feature.receipt.data.repository
+package com.mobile.felix.ticketapp.feature.ticketDetail.data.repository
 
 import com.mobile.felix.ticketapp.core.domain.model.Order
-import com.mobile.felix.ticketapp.feature.receipt.domain.repository.ReceiptRepository
-import com.mobile.felix.ticketapp.feature.receipt.domain.source.ReceiptLocalDataSource
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.repository.TicketDetailRepository
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.source.TicketDetailLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ReceiptRepositoryImpl(
-    private val localDataSource: ReceiptLocalDataSource,
+class TicketDetailRepositoryImpl(
+    private val localDataSource: TicketDetailLocalDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : ReceiptRepository {
+) : TicketDetailRepository {
 
     override suspend fun getOrderById(orderId: Long): Order = withContext(dispatcher) {
         localDataSource.getOrderById(orderId)

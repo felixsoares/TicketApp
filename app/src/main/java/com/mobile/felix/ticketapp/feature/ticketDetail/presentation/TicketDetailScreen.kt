@@ -1,4 +1,4 @@
-package com.mobile.felix.ticketapp.feature.receipt.presentation
+package com.mobile.felix.ticketapp.feature.ticketDetail.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,16 +34,16 @@ import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 import com.mobile.felix.ticketapp.core.presentation.ErrorView
 import com.mobile.felix.ticketapp.core.presentation.LoadingView
-import com.mobile.felix.ticketapp.feature.receipt.presentation.action.ReceiptAction
+import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.action.TicketDetailAction
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ReceiptScreen(modifier: Modifier = Modifier, orderId: Long) {
-    val viewModel: ReceiptViewModel = koinViewModel()
+    val viewModel: TicketDetailViewModel = koinViewModel()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Lifecycle.Event.ON_CREATE) {
-        viewModel.onAction(ReceiptAction.LoadOrder(orderId))
+        viewModel.onAction(TicketDetailAction.LoadOrder(orderId))
     }
 
     when {

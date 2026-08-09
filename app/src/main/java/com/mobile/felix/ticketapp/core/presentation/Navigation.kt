@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mobile.felix.ticketapp.feature.tickets.presentation.CartScreen
 import com.mobile.felix.ticketapp.feature.home.presentation.HomeScreen
-import com.mobile.felix.ticketapp.feature.receipt.presentation.ReceiptScreen
+import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.ReceiptScreen
 import com.mobile.felix.ticketapp.feature.eventDetail.presentation.TicketScreen
 import kotlinx.serialization.Serializable
 

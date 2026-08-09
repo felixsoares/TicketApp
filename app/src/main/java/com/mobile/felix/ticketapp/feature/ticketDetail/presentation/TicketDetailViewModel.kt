@@ -1,29 +1,29 @@
-package com.mobile.felix.ticketapp.feature.receipt.presentation
+package com.mobile.felix.ticketapp.feature.ticketDetail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mobile.felix.ticketapp.feature.receipt.data.usecase.GetOrderByIdUseCase
-import com.mobile.felix.ticketapp.feature.receipt.presentation.action.ReceiptAction
-import com.mobile.felix.ticketapp.feature.receipt.presentation.state.ReceiptUiState
+import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.GetOrderByIdUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.action.TicketDetailAction
+import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.state.TicketDetailUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class ReceiptViewModel(
+class TicketDetailViewModel(
     private val getOrderByIdUseCase: GetOrderByIdUseCase
 ) : ViewModel() {
 
-    private val pendingActions = MutableSharedFlow<ReceiptAction>()
+    private val pendingActions = MutableSharedFlow<TicketDetailAction>()
 
-    var uiState = MutableStateFlow(ReceiptUiState())
+    var uiState = MutableStateFlow(TicketDetailUiState())
         private set
 
     init {
         viewModelScope.launch {
             pendingActions.collect { action ->
                 when (action) {
-                    is ReceiptAction.Idle -> {}
-                    is ReceiptAction.LoadOrder -> loadOrder(action.orderId)
+                    is TicketDetailAction.Idle -> {}
+                    is TicketDetailAction.LoadOrder -> loadOrder(action.orderId)
                 }
             }
         }
@@ -39,7 +39,7 @@ class ReceiptViewModel(
         )
     }
 
-    fun onAction(action: ReceiptAction) = viewModelScope.launch {
+    fun onAction(action: TicketDetailAction) = viewModelScope.launch {
         pendingActions.emit(action)
     }
 }
