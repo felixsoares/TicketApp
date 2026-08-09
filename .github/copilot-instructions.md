@@ -127,3 +127,9 @@ Routes defined in `core/presentation/Navigation.kt`.
 - No `!!` — use `?.`, `?: return`, or `requireNotNull("message")`
 - Coroutines: `Dispatchers.IO` for data ops; inject dispatcher for testability
 - Wrap async results in `Result<T>` or a custom `sealed class Resource<T>`
+
+## Specialized Skills Index
+For domain-specific tasks, strictly follow the rules defined in the corresponding skill files:
+
+- **Unit Testing**: When generating unit tests or test classes, follow [.github/copilot/skills/unit-testing.md](.github/copilot/skills/unit-testing.md).
+- **Architecture & Features**: When creating new features or ViewModels, follow [.github/copilot/skills/create-feature.md](.github/copilot/skills/create-feature.md).
