@@ -2,7 +2,7 @@ package com.mobile.felix.ticketapp
 
 import android.app.Application
 import com.mobile.felix.ticketapp.core.di.localModule
-import com.mobile.felix.ticketapp.feature.cart.di.cartModule
+import com.mobile.felix.ticketapp.feature.tickets.di.cartModule
 import com.mobile.felix.ticketapp.feature.home.di.homeModule
 import com.mobile.felix.ticketapp.feature.receipt.di.receiptModule
 import com.mobile.felix.ticketapp.feature.eventDetail.di.eventDetailModule

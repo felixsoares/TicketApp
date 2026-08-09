@@ -1,16 +1,16 @@
-package com.mobile.felix.ticketapp.feature.cart.data.repository
+package com.mobile.felix.ticketapp.feature.tickets.data.repository
 
 import com.mobile.felix.ticketapp.core.domain.model.Order
-import com.mobile.felix.ticketapp.feature.cart.domain.repository.CartRepository
-import com.mobile.felix.ticketapp.feature.cart.domain.source.CartLocalDataSource
+import com.mobile.felix.ticketapp.feature.tickets.domain.repository.TicketsRepository
+import com.mobile.felix.ticketapp.feature.tickets.domain.source.TicketsLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class CartRepositoryImpl(
-    private val localDataSource: CartLocalDataSource,
+class TicketsRepositoryImpl(
+    private val localDataSource: TicketsLocalDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : CartRepository {
+) : TicketsRepository {
 
     override suspend fun getOrders(): List<Order> = withContext(dispatcher) {
         localDataSource.getOrders()

@@ -1,23 +1,23 @@
-package com.mobile.felix.ticketapp.feature.cart.presentation
+package com.mobile.felix.ticketapp.feature.tickets.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mobile.felix.ticketapp.feature.cart.data.usecase.GetOrdersUseCase
-import com.mobile.felix.ticketapp.feature.cart.data.usecase.InitOrdersUseCase
-import com.mobile.felix.ticketapp.feature.cart.presentation.action.CartAction
-import com.mobile.felix.ticketapp.feature.cart.presentation.state.CartUiState
+import com.mobile.felix.ticketapp.feature.tickets.data.usecase.GetOrdersUseCase
+import com.mobile.felix.ticketapp.feature.tickets.data.usecase.InitOrdersUseCase
+import com.mobile.felix.ticketapp.feature.tickets.presentation.action.TicketsAction
+import com.mobile.felix.ticketapp.feature.tickets.presentation.state.TicketsUiState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class CartViewModel(
+class TicketsViewModel(
     private val getOrdersUseCase: GetOrdersUseCase,
     private val initOrdersUseCase: InitOrdersUseCase
 ) : ViewModel() {
 
-    private val pendingActions = MutableSharedFlow<CartAction>()
+    private val pendingActions = MutableSharedFlow<TicketsAction>()
 
-    var uiState = MutableStateFlow(CartUiState())
+    var uiState = MutableStateFlow(TicketsUiState())
         private set
 
     init {
@@ -26,8 +26,8 @@ class CartViewModel(
         viewModelScope.launch {
             pendingActions.collect { action ->
                 when (action) {
-                    is CartAction.Idle -> {}
-                    is CartAction.LoadOrders -> loadOrders()
+                    is TicketsAction.Idle -> {}
+                    is TicketsAction.LoadOrders -> loadOrders()
                 }
             }
         }
@@ -47,7 +47,7 @@ class CartViewModel(
         )
     }
 
-    fun onAction(action: CartAction) = viewModelScope.launch {
+    fun onAction(action: TicketsAction) = viewModelScope.launch {
         pendingActions.emit(action)
     }
 }

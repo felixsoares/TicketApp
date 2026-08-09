@@ -1,4 +1,4 @@
-package com.mobile.felix.ticketapp.feature.cart.presentation
+package com.mobile.felix.ticketapp.feature.tickets.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,16 +30,16 @@ import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 import com.mobile.felix.ticketapp.core.presentation.ErrorView
 import com.mobile.felix.ticketapp.core.presentation.LoadingView
-import com.mobile.felix.ticketapp.feature.cart.presentation.action.CartAction
+import com.mobile.felix.ticketapp.feature.tickets.presentation.action.TicketsAction
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CartScreen(modifier: Modifier = Modifier, onClickItem: (Long) -> Unit = {}) {
-    val viewModel: CartViewModel = koinViewModel()
+    val viewModel: TicketsViewModel = koinViewModel()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Lifecycle.Event.ON_CREATE) {
-        viewModel.onAction(CartAction.LoadOrders)
+        viewModel.onAction(TicketsAction.LoadOrders)
     }
 
     when {
