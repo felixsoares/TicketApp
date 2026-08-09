@@ -109,3 +109,27 @@ A comunicação com o aplicativo de pagamento da Cielo Lio foi implementada via 
 4. **Design System Dedicado & Animações**:
    - Criar tokens de design reutilizáveis no Compose, suporte a modo escuro/claro e transições de tela fluidas (*Shared Element Transitions*).
 
+---
+
+## 🤖 Aceleração de Desenvolvimento com IA (Copilot Instructions & Skills)
+
+O projeto foi totalmente impulsionado pelo uso de IA com **GitHub Copilot**, utilizando **Custom Instructions** e **Skills** padronizadas no repositório para garantir consistência arquitetural, alta qualidade de código e aceleração de entregas.
+
+### 📄 Arquivos de Configuração de IA
+- **`.github/copilot-instructions.md`**: Instruções centrais enxutas e de alta densidade da stack (Compose, MVI, Clean Architecture, Koin, Room). Define regras estritas (ex: domain sem dependências Android, ViewModels desacoplados) e padrões de comunicação.
+- **`.github/copilot/skills/create-feature.md`**: Skill com passo a passo estruturado (7 etapas) para geração automatizada de novas features seguindo rigorosamente a arquitetura do projeto.
+- **`.github/copilot/skills/unit-testing.md`**: Skill de testes unitários definindo padrões BDD (`should [behavior] when [scenario]`), padrão Given/When/Then, JUnit 5, MockK e `runTest`.
+
+---
+
+## 💡 Momentos Marcantes e Resultados com Uso de IA
+
+| Momento / Desafio | Ação da IA & Recursos Utilizados | Resultado Obtido |
+|---|---|---|
+| **Otimização das Instruções** | Redução e otimização do `.github/copilot-instructions.md` mantendo 100% da precisão das regras. | Redução de ~197 para ~80 linhas (~60% de economia de tokens por prompt), acelerando respostas e evitando estourar a janela de contexto. |
+| **Aprimoramento da Skill `create-feature.md`** | Correção e completude do checklist de 7 passos para criação de features, incluindo template Koin e injeções explícitas. | Criação de um padrão reprodutível e livre de ambiguidades para qualquer nova funcionalidade. |
+| **Criação da Feature `cart`** | Aplicação direta da skill `create-feature.md` para criar a tela de pedidos e carrinho. | Geração completa em minutos das camadas: `Order`, `OrderStatus`, `OrderEntity`, `OrderDao`, Data Source, Repository, Use Cases, Koin Module, ViewModel e UI `CartScreen` com chips coloridos por status. |
+| **Criação da Feature `receipt`** | Geração da feature de comprovante detalhado do pedido navegável a partir da `CartScreen`. | Implementação completa da tela de comprovante com separação visual de dados do evento, pagamento e número do pedido. |
+| **Diagnóstico de DeepLink (`onNewIntent`)** | Análise da falha no recebimento do callback da Cielo Lio. | Identificação de que o `<intent-filter>` de DeepLink necessitava ser separado do filtro `LAUNCHER` no `AndroidManifest.xml` com `<data android:scheme="order" android:host="response" />`, reestabelecendo a navegação de retorno. |
+| **Geração de 56 Testes Unitários** | Aplicação da skill `unit-testing.md` para criar testes em `home` (16 testes), `eventDetail` e `ticketDetail` (40 testes). | Cobertura total das camadas de ViewModel, Use Case, Repository e Data Source com BDD, MockK e corrotinas. |
+| **Correção de Timeout em Teste de Flow** | Diagnóstico de `UncompletedCoroutinesError` no teste de disparo de DeepLink (`LaunchCieloApp`). | Substituição de `flow.collect { ... }` (coleta infinita) por `flow.first()` (coleta finita com `take(1)`), eliminando o travamento do teste após 1m. |
