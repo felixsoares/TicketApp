@@ -3,6 +3,7 @@ package com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase
 import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 import com.mobile.felix.ticketapp.core.payment.PaymentMethod
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.PaymentRequestUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.every

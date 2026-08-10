@@ -1,6 +1,7 @@
 package com.mobile.felix.ticketapp.feature.home.data.usecase
 
 import com.mobile.felix.ticketapp.feature.home.domain.source.HomeLocalDataSource
+import com.mobile.felix.ticketapp.feature.home.domain.usecase.InitDatabaseUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coEvery

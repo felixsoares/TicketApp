@@ -1,4 +1,4 @@
-package com.mobile.felix.ticketapp.feature.eventDetail.data.usecase
+package com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase
 
 import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.feature.eventDetail.domain.repository.EventDetailRepository

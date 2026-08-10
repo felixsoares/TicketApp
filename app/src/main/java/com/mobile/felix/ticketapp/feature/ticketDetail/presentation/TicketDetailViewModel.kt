@@ -8,13 +8,12 @@ import com.mobile.felix.ticketapp.core.data.payment.response.ErrorResponse
 import com.mobile.felix.ticketapp.core.data.payment.response.SuccessResponse
 import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
-import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.GetOrderByIdUseCase
-import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.PaymentRequestUseCase
-import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.UpdateOrderStatusUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.GetOrderByIdUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.PaymentRequestUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.UpdateOrderStatusUseCase
 import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.action.TicketDetailAction
 import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.state.PaymentUiEffect
 import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.state.TicketDetailUiState
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

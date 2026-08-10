@@ -2,7 +2,7 @@ package com.mobile.felix.ticketapp.feature.tickets.di
 
 import com.mobile.felix.ticketapp.feature.tickets.data.repository.TicketsRepositoryImpl
 import com.mobile.felix.ticketapp.feature.tickets.data.source.TicketsLocalDataSourceImpl
-import com.mobile.felix.ticketapp.feature.tickets.data.usecase.GetOrdersUseCase
+import com.mobile.felix.ticketapp.feature.tickets.domain.usecase.GetOrdersUseCase
 import com.mobile.felix.ticketapp.feature.tickets.domain.repository.TicketsRepository
 import com.mobile.felix.ticketapp.feature.tickets.domain.source.TicketsLocalDataSource
 import com.mobile.felix.ticketapp.feature.tickets.presentation.TicketsViewModel

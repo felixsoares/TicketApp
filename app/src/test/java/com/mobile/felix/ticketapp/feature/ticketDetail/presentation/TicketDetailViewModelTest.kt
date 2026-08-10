@@ -2,9 +2,9 @@ package com.mobile.felix.ticketapp.feature.ticketDetail.presentation
 
 import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
-import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.GetOrderByIdUseCase
-import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.PaymentRequestUseCase
-import com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase.UpdateOrderStatusUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.GetOrderByIdUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.PaymentRequestUseCase
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.UpdateOrderStatusUseCase
 import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.action.TicketDetailAction
 import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.state.PaymentUiEffect
 import io.mockk.MockKAnnotations

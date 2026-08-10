@@ -3,9 +3,9 @@ package com.mobile.felix.ticketapp.feature.eventDetail.presentation
 import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
-import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.GetEventByIdUseCase
-import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.GetOrderByEventIdUseCase
-import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.SaveInitialOrderUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.GetEventByIdUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.GetOrderByEventIdUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.SaveInitialOrderUseCase
 import com.mobile.felix.ticketapp.feature.eventDetail.presentation.action.EventDetailAction
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks

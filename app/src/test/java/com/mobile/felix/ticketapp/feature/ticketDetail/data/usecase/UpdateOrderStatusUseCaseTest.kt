@@ -2,6 +2,7 @@ package com.mobile.felix.ticketapp.feature.ticketDetail.data.usecase
 
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 import com.mobile.felix.ticketapp.feature.ticketDetail.domain.repository.TicketDetailRepository
+import com.mobile.felix.ticketapp.feature.ticketDetail.domain.usecase.UpdateOrderStatusUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coVerify

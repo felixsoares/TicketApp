@@ -1,4 +1,4 @@
-package com.mobile.felix.ticketapp.feature.tickets.data.usecase
+package com.mobile.felix.ticketapp.feature.tickets.domain.usecase
 
 import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.feature.tickets.domain.repository.TicketsRepository

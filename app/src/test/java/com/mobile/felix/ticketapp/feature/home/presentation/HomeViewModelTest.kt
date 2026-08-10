@@ -1,8 +1,8 @@
 package com.mobile.felix.ticketapp.feature.home.presentation
 
 import com.mobile.felix.ticketapp.core.domain.model.Event
-import com.mobile.felix.ticketapp.feature.home.data.usecase.GetEventsUseCase
-import com.mobile.felix.ticketapp.feature.home.data.usecase.InitDatabaseUseCase
+import com.mobile.felix.ticketapp.feature.home.domain.usecase.GetEventsUseCase
+import com.mobile.felix.ticketapp.feature.home.domain.usecase.InitDatabaseUseCase
 import com.mobile.felix.ticketapp.feature.home.presentation.action.HomeAction
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks

@@ -2,7 +2,7 @@ package com.mobile.felix.ticketapp.feature.tickets.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mobile.felix.ticketapp.feature.tickets.data.usecase.GetOrdersUseCase
+import com.mobile.felix.ticketapp.feature.tickets.domain.usecase.GetOrdersUseCase
 import com.mobile.felix.ticketapp.feature.tickets.presentation.action.TicketsAction
 import com.mobile.felix.ticketapp.feature.tickets.presentation.state.TicketsUiState
 import kotlinx.coroutines.flow.MutableSharedFlow

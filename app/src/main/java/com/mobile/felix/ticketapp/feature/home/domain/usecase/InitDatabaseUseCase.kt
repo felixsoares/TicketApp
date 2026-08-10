@@ -1,4 +1,4 @@
-package com.mobile.felix.ticketapp.feature.home.data.usecase
+package com.mobile.felix.ticketapp.feature.home.domain.usecase
 
 import com.mobile.felix.ticketapp.feature.home.domain.source.HomeLocalDataSource
 

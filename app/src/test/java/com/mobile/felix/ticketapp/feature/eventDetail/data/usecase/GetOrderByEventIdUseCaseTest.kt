@@ -3,6 +3,7 @@ package com.mobile.felix.ticketapp.feature.eventDetail.data.usecase
 import com.mobile.felix.ticketapp.core.domain.model.Order
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
 import com.mobile.felix.ticketapp.feature.eventDetail.domain.repository.EventDetailRepository
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.GetOrderByEventIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coEvery

@@ -4,12 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.core.domain.model.OrderStatus
-import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.GetEventByIdUseCase
-import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.GetOrderByEventIdUseCase
-import com.mobile.felix.ticketapp.feature.eventDetail.data.usecase.SaveInitialOrderUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.GetEventByIdUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.GetOrderByEventIdUseCase
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.SaveInitialOrderUseCase
 import com.mobile.felix.ticketapp.feature.eventDetail.presentation.action.EventDetailAction
 import com.mobile.felix.ticketapp.feature.eventDetail.presentation.state.EventDetailUiState
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

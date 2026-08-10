@@ -2,8 +2,8 @@ package com.mobile.felix.ticketapp.feature.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mobile.felix.ticketapp.feature.home.data.usecase.GetEventsUseCase
-import com.mobile.felix.ticketapp.feature.home.data.usecase.InitDatabaseUseCase
+import com.mobile.felix.ticketapp.feature.home.domain.usecase.GetEventsUseCase
+import com.mobile.felix.ticketapp.feature.home.domain.usecase.InitDatabaseUseCase
 import com.mobile.felix.ticketapp.feature.home.presentation.action.HomeAction
 import com.mobile.felix.ticketapp.feature.home.presentation.state.HomeUiState
 import kotlinx.coroutines.flow.MutableSharedFlow

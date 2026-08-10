@@ -2,6 +2,7 @@ package com.mobile.felix.ticketapp.feature.eventDetail.data.usecase
 
 import com.mobile.felix.ticketapp.core.domain.model.Event
 import com.mobile.felix.ticketapp.feature.eventDetail.domain.repository.EventDetailRepository
+import com.mobile.felix.ticketapp.feature.eventDetail.domain.usecase.GetEventByIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
