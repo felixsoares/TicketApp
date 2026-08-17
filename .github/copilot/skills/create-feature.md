@@ -5,12 +5,12 @@
 feature/<name>/
 ├── data/
 │   ├── repository/   # <Name>RepositoryImpl.kt
-│   ├── source/       # <Name>LocalDataSourceImpl.kt
-│   └── usecase/      # Get<Name>UseCase.kt  (one file per use case)
+│   └── source/       # <Name>LocalDataSourceImpl.kt
 ├── di/               # <Name>Module.kt
 ├── domain/
 │   ├── repository/   # <Name>Repository.kt  (interface)
-│   └── source/       # <Name>LocalDataSource.kt  (interface)
+│   ├── source/       # <Name>LocalDataSource.kt  (interface)
+│   └── usecase/      # Get<Name>UseCase.kt  (one file per use case)
 └── presentation/
     ├── action/       # <Name>Action.kt  (sealed class)
     ├── state/        # <Name>UiState.kt  (data class)
@@ -30,11 +30,11 @@ feature/<name>/
 2. **Domain interfaces** (no Android imports)
    - `feature/<name>/domain/source/<Name>LocalDataSource.kt`
    - `feature/<name>/domain/repository/<Name>Repository.kt`
+   - `feature/<name>/domain/usecase/Get<Name>UseCase.kt` — single `operator fun invoke`
 
 3. **Data implementations**
    - `feature/<name>/data/source/<Name>LocalDataSourceImpl.kt` — inject DAO + `CoroutineDispatcher`
    - `feature/<name>/data/repository/<Name>RepositoryImpl.kt` — inject data source + `CoroutineDispatcher`
-   - `feature/<name>/data/usecase/Get<Name>UseCase.kt` — single `operator fun invoke`
 
 4. **Presentation — MVI**
    - `action/<Name>Action.kt` — `sealed class` with all user intents

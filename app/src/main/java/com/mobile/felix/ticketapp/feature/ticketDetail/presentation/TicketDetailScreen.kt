@@ -18,8 +18,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -46,7 +49,11 @@ import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.state.Paymen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TicketDetailScreen(modifier: Modifier = Modifier, orderId: Long) {
+fun TicketDetailScreen(
+    modifier: Modifier = Modifier,
+    orderId: Long,
+    onNavigateToQrCode: (Long) -> Unit = {}
+) {
     val viewModel: TicketDetailViewModel = koinViewModel()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -79,7 +86,9 @@ fun TicketDetailScreen(modifier: Modifier = Modifier, orderId: Long) {
             order = uiState.value.order!!,
             onRequestPayment = { order ->
                 viewModel.onAction(TicketDetailAction.PaymentRequest(order))
-            })
+            },
+            onNavigateToQrCode = onNavigateToQrCode
+        )
 
         else -> ErrorView(modifier)
     }
@@ -89,7 +98,8 @@ fun TicketDetailScreen(modifier: Modifier = Modifier, orderId: Long) {
 fun TicketDetailContent(
     modifier: Modifier = Modifier,
     order: Order,
-    onRequestPayment: (Order) -> Unit
+    onRequestPayment: (Order) -> Unit,
+    onNavigateToQrCode: (Long) -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -122,6 +132,20 @@ fun TicketDetailContent(
                     value = "R$ ${"%.2f".format(order.ticketQuantity * order.price)}",
                     valueStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
+            }
+
+            Button(
+                onClick = { onNavigateToQrCode(order.id) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.QrCode,
+                    contentDescription = null,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text(text = "Visualizar QR Code do Ingresso")
             }
         }
 

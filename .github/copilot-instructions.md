@@ -30,12 +30,12 @@ com.mobile.felix.ticketapp/
 ├── feature/<name>/
 │   ├── data/
 │   │   ├── repository/   # XRepositoryImpl
-│   │   ├── source/       # XLocalDataSourceImpl
-│   │   └── usecase/      # One use case per file
+│   │   └── source/       # XLocalDataSourceImpl
 │   ├── di/               # <Feature>Module (Koin)
 │   ├── domain/
 │   │   ├── repository/   # XRepository (interface)
-│   │   └── source/       # XLocalDataSource (interface)
+│   │   ├── source/       # XLocalDataSource (interface)
+│   │   └── usecase/      # One use case per file
 │   └── presentation/
 │       ├── action/       # XAction (sealed class)
 │       ├── state/        # XUiState (data class)

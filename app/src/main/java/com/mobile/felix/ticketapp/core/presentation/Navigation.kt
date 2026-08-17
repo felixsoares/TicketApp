@@ -5,10 +5,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mobile.felix.ticketapp.feature.tickets.presentation.CartScreen
-import com.mobile.felix.ticketapp.feature.home.presentation.HomeScreen
-import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.TicketDetailScreen
 import com.mobile.felix.ticketapp.feature.eventDetail.presentation.EventDetailScreen
+import com.mobile.felix.ticketapp.feature.home.presentation.HomeScreen
+import com.mobile.felix.ticketapp.feature.qrCode.presentation.QrCodeScreen
+import com.mobile.felix.ticketapp.feature.ticketDetail.presentation.TicketDetailScreen
+import com.mobile.felix.ticketapp.feature.tickets.presentation.CartScreen
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -43,7 +44,18 @@ fun Navigation(modifier: Modifier = Modifier, navController: NavHostController, 
         composable<Route.TicketDetail> { backStackEntry ->
             isBottomBarVisible(false)
             val orderId: Long = backStackEntry.arguments?.getLong("orderId") ?: 0L
-            TicketDetailScreen(orderId = orderId)
+            TicketDetailScreen(
+                orderId = orderId,
+                onNavigateToQrCode = { id ->
+                    navController.navigate(Route.QrCode(id))
+                }
+            )
+        }
+
+        composable<Route.QrCode> { backStackEntry ->
+            isBottomBarVisible(false)
+            val orderId: Long = backStackEntry.arguments?.getLong("orderId") ?: 0L
+            QrCodeScreen(orderId = orderId)
         }
     }
 }
@@ -60,4 +72,7 @@ sealed class Route {
 
     @Serializable
     data class TicketDetail(val orderId: Long) : Route()
+
+    @Serializable
+    data class QrCode(val orderId: Long) : Route()
 }
